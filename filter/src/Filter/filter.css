@@ -1,0 +1,67 @@
+body {
+    font-family: 'Poppins';font-size: 22px; 
+}
+
+.center{
+    text-align: center;
+}
+
+.bordered-circle {
+    background-color: grey;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.filter-text {
+    padding-left: 11%;
+    padding-top: 3%;
+    margin-top: 0;
+}
+
+.box {
+    -webkit-box-shadow: 1px 2px 12px 1px rgba(169,169,171,1);
+    -moz-box-shadow: 1px 2px 12px 1px rgba(169,169,171,1);
+    box-shadow: 1px 2px 12px 1px rgba(169,169,171,1);
+    border-radius: 20px;
+}
+
+.box:focus{
+    outline: none;
+}
+
+.dot {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 2%;
+    margin-right: 5px;
+  }
+
+  .dot-2 {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+.box-button:focus {
+  outline: none;
+
+  }
+
+  .country-background {
+    background: #ccc;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-right: 1%;
+    font-size: 15px;
+  }
+
+  .car {
+    width: 78%;
+    background-color: #ccc;
+    padding: 4%;
+    margin: 7%;
+  }
