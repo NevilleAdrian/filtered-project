@@ -16,8 +16,8 @@ export default class filter extends Component {
     };
   }
 
-  receivedData() {
-    axios.get(`https://serene-badlands-03855.herokuapp.com/api/filters`).then((res) => {
+   async receivedData() {
+      await axios.get('https://serene-badlands-03855.herokuapp.com/api/filters').then((res) => {
       const data = res.data;
       console.log({ data })
       this.setState({ data: data, filterData: data });
@@ -25,6 +25,7 @@ export default class filter extends Component {
     });
   }
 
+  
 
 
   async receivedFilter() {

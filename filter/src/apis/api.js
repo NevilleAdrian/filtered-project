@@ -10,8 +10,6 @@ const getAll = (url) =>
       throw new Error(err.response.data);
     });
 
-
-
 export default {
   getAll,
 };
