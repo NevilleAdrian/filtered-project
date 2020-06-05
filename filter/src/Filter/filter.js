@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import api from "../apis/api";
 import "./filter.css";
-import Loader from 'react-loader-spinner'
+// import Loader from 'react-loader-spinner'
+import LoadingProgress from 'react-js-loading-progress-bar';
 import fil from "../helper/filtered";
 
 export default class filter extends Component {
@@ -16,8 +17,8 @@ export default class filter extends Component {
     };
   }
 
-   async receivedData() {
-      await axios.get('https://serene-badlands-03855.herokuapp.com/api/filters').then((res) => {
+  async receivedData() {
+    await axios.get('https://serene-badlands-03855.herokuapp.com/api/filters').then((res) => {
       const data = res.data;
       console.log({ data })
       this.setState({ data: data, filterData: data });
@@ -25,7 +26,7 @@ export default class filter extends Component {
     });
   }
 
-  
+
 
 
   async receivedFilter() {
@@ -159,16 +160,16 @@ export default class filter extends Component {
             {[...Array(Math.floor(this.state.filterData.length / 100)).keys()].map(i =>
               <button type="button" onClick={() => this.setState({ ...this.state, page: i + 1 })}>{i + 1}</button>)}
           </div>
-          : 
-          <div style={{textAlign: "center", position: "absolute", top:"50%", left:"50%"}}>
-            <Loader
-            type="Puff"
-            color="#00BFFF"
-            height={100}
-            width={100}
-          />
+          :
+          <div style={{ textAlign: "center", position: "absolute", top: "50%", left: "30%" }}>
+            <LoadingProgress
+              useSpinner
+              active={true}
+              total={this.state.total}
+              current={this.state.current}
+            />
           </div>
-          }
+        }
 
       </>
     );
