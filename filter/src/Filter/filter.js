@@ -17,7 +17,7 @@ export default class filter extends Component {
   }
 
   receivedData() {
-    axios.get(`http://localhost:3000/api/filters`).then((res) => {
+    axios.get(`https://serene-badlands-03855.herokuapp.com/api/filters`).then((res) => {
       const data = res.data;
       console.log({ data })
       this.setState({ data: data, filterData: data });
