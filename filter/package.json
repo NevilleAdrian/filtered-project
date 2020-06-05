@@ -8,7 +8,6 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "bootstrap": "^3.4.1",
-    "jest": "^22.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-loader-spinner": "^3.1.14",
@@ -43,7 +42,7 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "devDependencies": {
-    "babel-jest": "^22.4.3"
+    "jest": "^24.9.0"
   },
   "keywords": [],
   "author": "",
