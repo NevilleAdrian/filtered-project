@@ -28,7 +28,6 @@ export default class filter extends Component {
 
 
 
-
   async receivedFilter() {
     const projectData = await api.getAll(
       "https://ven10.co/assessment/filter.json"
@@ -44,7 +43,7 @@ export default class filter extends Component {
 
 
   filterList(a) {
-    const newData = fil.filtered(this.state.filterData, a);
+    const newData = fil.filtered(this.state.data, a);
     this.setState({ ...this.state, filterData: newData })
 
   }
@@ -59,10 +58,15 @@ export default class filter extends Component {
     console.log(this.state.filterData)
     return (
       <>
-        {this.state.filterData.length && this.state.data.length ?
+        {this.state.data.length ?
           <div style={{ backgroundColor: "#ccc" }}>
             <h3 className="filter-text">Filter</h3>
-
+            {this.state.filterData.length === 0 &&
+          <div className="center">
+            <p>Your Filtered list is empty</p>
+          </div>
+          
+          }           
             {this.state.postData
               .sort()
               .map((data) => (
@@ -157,11 +161,13 @@ export default class filter extends Component {
 
                 </>
               ))}
+
+          
             {[...Array(Math.floor(this.state.filterData.length / 100)).keys()].map(i =>
               <button type="button" onClick={() => this.setState({ ...this.state, page: i + 1 })}>{i + 1}</button>)}
           </div>
           :
-          <div style={{ textAlign: "center", position: "absolute", top: "50%", left: "30%" }}>
+          <div style={{ textAlign: "center", position: "absolute", top: "50%", left: "30%" }} className>
             <LoadingProgress
               useSpinner
               active={true}
@@ -170,6 +176,7 @@ export default class filter extends Component {
             />
           </div>
         }
+      
 
       </>
     );
