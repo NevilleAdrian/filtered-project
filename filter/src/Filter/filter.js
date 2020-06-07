@@ -14,6 +14,7 @@ export default class filter extends Component {
       data: [],
       pager: {},
       filterData: [],
+      show: false
     };
   }
 
@@ -25,7 +26,7 @@ export default class filter extends Component {
 
   componentDidUpdate() {
     this.receivedData();
-}
+  }
 
 
   async receivedData() {
@@ -37,11 +38,12 @@ export default class filter extends Component {
         const pager = res.data.pager
         console.log({ data })
         this.setState({ data: data, filterData: data, pager: pager });
-  
+
       });
     }
-  
+
   }
+
 
 
 
@@ -53,15 +55,15 @@ export default class filter extends Component {
     this.setState({ postData: projectData });
   }
 
- 
+
 
   filterList(a) {
     const newData = fil.filtered(this.state.data, a);
-    this.setState({ ...this.state, filterData: newData })
+    this.setState({ ...this.state, filterData: newData, show: true })
 
   }
 
- 
+
 
 
 
@@ -72,22 +74,22 @@ export default class filter extends Component {
       <>
         {this.state.data.length ?
           <div style={{ backgroundColor: "#ccc" }}>
-            <h3 className="filter-text">Filter</h3>
+            <h3 className="filter-text"><span><img className="filter-icon" src="images/filter.png"/></span>Filter</h3>
             {this.state.filterData.length === 0 &&
-             <div className="center">
-               <p>Filter list is empty</p>
-             </div>
-          }           
+              <div className="center">
+                <p>Filter list is empty</p>
+              </div>
+            }
             {this.state.postData
               .sort()
               .map((data) => (
                 <>
-                  <div className="container box" style={{ backgroundColor: "#fff", marginBottom: "20px" }}>
+                  <div className="container box" style={{ backgroundColor: "#fff", marginBottom: "20px", paddingTop:"3%", paddingBottom:"3%" }}>
                     <button className="box-button" style={{ backgroundColor: "transparent", border: "none" }} onClick={() => this.filterList(data, true)}>
                       <div className="col-md-12">
                         <div className="card" style={{ marginBottom: "20px" }}>
                           <div className="card-body">
-                            <h2 style={{ fontWeight: "bold" }} className="center">
+                            <h2  style={{ fontWeight: "bold" }} className="center">
                               {data.start_year} - {data.end_year}
                             </h2>
                             <h5 className="center">{data.gender}</h5>
@@ -119,83 +121,93 @@ export default class filter extends Component {
               ))}
 
             {this.state.filterData
-              .map(({ first_name, last_name, email, country, car_model, car_model_year, car_color, gender, job_title, bio }) => (
+              .map(({ first_name, last_name, email, country, car_model, car_model_year, car_color, gender, job_title, bio, _id }) => (
                 <>
-                  <div className="container box" style={{ backgroundColor: "#fff", marginBottom: "20px" }}>
-                    <div className="col-md-12">
-                      <div className="card" style={{ marginBottom: "20px" }}>
-                        <div className="card-body">
-                          <div className="col-md-4">
-                            <img className="car" src="images/car.jpg" />
-                          </div>
-                          <div className="col-md-8">
-                            <h3 style={{ color: "#000" }}>{first_name === "NaN" ? "" : first_name} {last_name === "NaN" ? "" : last_name}</h3>
-                            <div style={{ paddingLeft: "15px" }} className="row">
-                              <span style={{ paddingRight: "20px" }} className="center">Brand</span>
-                              <span style={{ paddingRight: "20px" }} className="center">Year</span>
-                              <span style={{ paddingRight: "20px" }} className="center">Color</span>
+                  {this.state.show &&
+                    <div className="container box" style={{ backgroundColor: "#fff", marginBottom: "20px", paddingTop:"3%", paddingBottom:"3%"  }}>
+                      <div className="col-md-12">
+                        <div className="card" style={{ marginBottom: "20px" }}>
+                          <div className="card-body">
+                            <div className="col-md-4">
+                              <img className="car" src="images/car.png" />
                             </div>
-                            <div style={{ paddingLeft: "15px" }} className="row">
-                              <span style={{ paddingRight: "20px" }} className="center">{car_model}</span>
-                              <span style={{ paddingRight: "20px" }} className="center">{car_model_year}</span>
-                              <span style={{ backgroundColor: car_color, paddingRight: "20px" }} className="dot-2 center"></span>
+                            <div className="col-md-8">
+                              <h3 style={{ color: "#000" }}>{first_name === "NaN" ? "" : first_name} {last_name === "NaN" ? "" : last_name}</h3>
+                              <div className="row">
+                                <div className="col-md-4 center" style={{ width: "20%", borderRight: "2px solid #000" }}>
+                                  <p style={{ textAlign: "left", color:"#ccc" }}>Brand</p>
+                                  <p  style={{ textAlign: "left" }}> {car_model}</p>
+                                </div>
+                                <div className="col-md-4" style={{ width: "20%", borderRight: "2px solid #000" }}>
+                                  <p style={{ textAlign: "center",  color:"#ccc" }}>Year</p>
+                                  <p style={{ textAlign: "center" }}>{car_model_year}</p>
+                                </div>
+                                <div className="col-md-4" style={{ width: "20%" }}>
+                                  <p style={{ textAlign: "center",  color:"#ccc" }}>Color</p>
+                                  <div style={{textAlign:"center"}}> <p style={{ backgroundColor: car_color, paddingRight: "20px"}} className="dot-2" ></p></div>
+                                </div>
+                              </div>
+                              <div className="row" style={{ paddingTop: "15px" }}>
+                                <div className="col-md-4 center" style={{ width: "20%", borderRight: "2px solid #000" }}>
+                                  <p style={{ textAlign: "left",  color:"#ccc" }}>Country</p>
+                                  <p style={{ textAlign: "left" }}> {country}</p>
+                                </div>
+                                <div className="col-md-4" style={{ width: "20%", borderRight: "2px solid #000" }}>
+                                  <p style={{ textAlign: "center",  color:"#ccc" }}>Gender</p>
+                                  <p style={{ textAlign: "center" }}>{gender}</p>
+                                </div>
+                                <div className="col-md-4" style={{ width: "20%" }}>
+                                  <p style={{ textAlign: "center",  color:"#ccc" }}>Job</p>
+                                  <p style={{ textAlign: "center" }}>{job_title}</p>
+                                </div>
+                              </div>
+
+                              <div style={{ paddingLeft: "15px", paddingTop: "15px" }} className="row">
+                                <span style={{ paddingRight: "20px" }} className="center"><span style={{ color:"#ccc", paddingRight:"5px"}} >Email:</span>{email}</span>
+                              </div>
+
+                              <div style={{ paddingLeft: "15px", paddingTop: "15px" }} className="row">
+                                <span style={{ paddingRight: "20px" }} className="center"><span  style={{ color:"#ccc", paddingRight:"5px"}}>Bio:</span>{bio}</span>
+                              </div>
+
+
+
                             </div>
-
-                            <div style={{ paddingLeft: "15px", paddingTop: "15px" }} className="row">
-                              <span style={{ paddingRight: "20px" }} className="center">Country</span>
-                              <span style={{ paddingRight: "20px" }} className="center">Gender</span>
-                              <span style={{ paddingRight: "20px" }} className="center">Job</span>
-                            </div>
-                            <div style={{ paddingLeft: "15px" }} className="row">
-                              <span style={{ paddingRight: "20px" }} className="center">{country}</span>
-                              <span style={{ paddingRight: "20px" }} className="center">{gender}</span>
-                              <span style={{ paddingRight: "20px" }} className="center">{job_title}</span>
-                            </div>
-
-                            <div style={{ paddingLeft: "15px", paddingTop: "15px" }} className="row">
-                              <span style={{ paddingRight: "20px" }} className="center"><span >Email:</span>{email}</span>
-                            </div>
-
-                            <div style={{ paddingLeft: "15px", paddingTop: "15px" }} className="row">
-                              <span style={{ paddingRight: "20px" }} className="center"><span >Bio:</span>{bio}</span>
-                            </div>
-
-
-
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  
+
+                  }
+
                 </>
               ))}
-
+            {this.state.show &&
               <div className="card-footer pb-0 pt-3 center">
-                    {this.state.pager.pages &&  this.state.pager.pages.length &&
-                        <ul className="pagination">
-                            <li className={`page-item first-item ${this.state.pager.currentPage === 1 ? 'disabled' : ''}`}>
-                                <Link to={{ search: `?page=1` }} className="page-link">First</Link>
-                            </li>
-                            <li className={`page-item previous-item ${this.state.pager.currentPage === 1 ? 'disabled' : ''}`}>
-                                <Link to={{ search: `?page=${this.state.pager.currentPage - 1}` }} className="page-link">Previous</Link>
-                            </li>
-                            {this.state.pager.pages.map(page =>
-                                <li key={page} className={`page-item number-item ${this.state.pager.currentPage === page ? 'active' : ''}`}>
-                                    <Link to={{ search: `?page=${page}` }} className="page-link">{page}</Link>
-                                </li>
-                            )}
-                            <li className={`page-item next-item ${this.state.pager.currentPage === this.state.pager.totalPages ? 'disabled' : ''}`}>
-                                <Link to={{ search: `?page=${this.state.pager.currentPage + 1}` }} className="page-link">Next</Link>
-                            </li>
-                            <li className={`page-item last-item ${this.state.pager.currentPage === this.state.pager.totalPages ? 'disabled' : ''}`}>
-                                <Link to={{ search: `?page=${this.state.pager.totalPages}` }} className="page-link">Last</Link>
-                            </li>
-                        </ul>
-                    }                    
-                </div>
-          
-     
+                {this.state.pager.pages && this.state.pager.pages.length &&
+                  <ul className="pagination">
+                    <li className={`page-item first-item ${this.state.pager.currentPage === 1 ? 'disabled' : ''}`}>
+                      <Link to={{ search: `?page=1` }} className="page-link">First</Link>
+                    </li>
+                    <li className={`page-item previous-item ${this.state.pager.currentPage === 1 ? 'disabled' : ''}`}>
+                      <Link to={{ search: `?page=${this.state.pager.currentPage - 1}` }} className="page-link">Previous</Link>
+                    </li>
+                    {this.state.pager.pages.map(page =>
+                      <li key={page} className={`page-item number-item ${this.state.pager.currentPage === page ? 'active' : ''}`}>
+                        <Link to={{ search: `?page=${page}` }} className="page-link">{page}</Link>
+                      </li>
+                    )}
+                    <li className={`page-item next-item ${this.state.pager.currentPage === this.state.pager.totalPages ? 'disabled' : ''}`}>
+                      <Link to={{ search: `?page=${this.state.pager.currentPage + 1}` }} className="page-link">Next</Link>
+                    </li>
+                    <li className={`page-item last-item ${this.state.pager.currentPage === this.state.pager.totalPages ? 'disabled' : ''}`}>
+                      <Link to={{ search: `?page=${this.state.pager.totalPages}` }} className="page-link">Last</Link>
+                    </li>
+                  </ul>
+                }
+              </div>
+            }
+
 
           </div>
           :
@@ -208,8 +220,8 @@ export default class filter extends Component {
             />
           </div>
         }
-            
-      
+
+
 
       </>
     );
