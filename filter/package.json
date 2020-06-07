@@ -12,8 +12,10 @@
     "react-dom": "^16.13.1",
     "react-js-loading-progress-bar": "^0.3.1",
     "react-loader-spinner": "^3.1.14",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "serve": "^11.3.2",
+    "sweetalert": "^2.1.2",
     "underscore": "^1.10.2"
   },
   "scripts": {
